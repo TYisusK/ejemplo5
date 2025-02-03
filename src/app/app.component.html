@@ -1,72 +1,91 @@
+<!-- Contenedor del menú superior derecho -->
+<div class="nav-container">
+  <a href="https://portafolio-de-evidencias-parcial1.netlify.app/" class="home-btn">
+    <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Home">
+  </a>
+
+  <!-- Menú desplegable con select -->
+  <select class="menu-select" onchange="location = this.value;">
+    <option value="" selected disabled>Menú</option>
+    <option value="https://fundamentos-ejemmplo1.netlify.app/">Ejemplo 1</option>
+    <option value="https://ejemplo2dados.netlify.app/">Ejemplo 2</option>
+    <option value="https://ejemplo3productos.netlify.app/">Ejemplo 3</option>
+    <option value="https://ejemplo4formularioreact.netlify.app/">Ejemplo 4</option>
+    <option value="https://ejemplo5formularioreactivo.netlify.app/">Ejemplo 5</option>
+    <option value="https://hotelutx-parcial1.netlify.app/">Proyecto</option>
+  </select>
+</div>
+
 <div style="margin: 20px;">
   <h1>Mensaje del Cliente (Formulario Reactivo)</h1>
 
   <div class="col-sm-4">
+    <form [formGroup]="formContacto" (ngSubmit)="onSubmit()">
+      <p>
+        Nombre: <input type="text" class="form-control" formControlName="nombre" />
+        @if(enviado && formContacto.get('nombre')?.errors?.['required']){
+          <span style="color: red;">Este campo es obligatorio</span>
+        }
+        @if(enviado && formContacto.get('nombre')?.errors?.['minlength']){
+          <span style="color: red;">El nombre debe tener al menos 10 caracteres</span>
+        }
+      </p>
 
- 
+      <p>
+        E-mail: <input type="text" class="form-control" formControlName="email" />
+        @if(enviado && formContacto.get('email')?.errors?.['required']){
+          <span style="color: red;">Este campo es obligatorio</span>
+        }
+        @if(enviado && formContacto.get('email')?.errors?.['email']){
+          <span style="color: red;">El correo proporcionado no es válido</span>
+        }
+      </p>
 
-  <form [formGroup]="formContacto" (ngSubmit)="onSubmit()">
-    <p>
-      Nombre: <input type="text" class="form-control" formControlName="nombre" />
-      @if(enviado && formContacto.get('nombre')?.errors?.['required']){
-        <span style="color: red;">Este campo es obligatorio</span>
-      }
-      @if(enviado && formContacto.get('nombre')?.errors?.['minlength']){
-        <span style="color: red;">El nombre debe tener al menos 10 caracteres</span>
-      }
-    </p>
-    <p>
-      E-mail: <input type="text" class="form-control" formControlName="email" />
-      @if(enviado && formContacto.get('email')?.errors?.['required']){
-        <span style="color: red;">Este campo es obligatorio</span>
-      }
-      @if(enviado && formContacto.get('email')?.errors?.['email']){
-        <span style="color: red;">El correo proporcionado no es valido</span>
-      }
-      
-    </p>
-    <p>
-      ¿Es cliente registrado?:
-      <input type="radio" formControlName="status" value="Si" /> Si
-      <input type="radio" formControlName="status" value="No" /> No
-      @if(enviado && formContacto.get('status')?.errors?.['required']){
-        <span style="color: red;">Este campo es obligatorio</span>
-      }
-    </p>
-    <p>
-      Municipio:
-      <select class="form-control" formControlName="municipio">
-        <option value="Amealco">Amealco</option>
-        <option value="San Juan del Río">San Juan del Río</option>
-        <option value="Tequisquiapan">Tequisquiapan</option>
-      </select>
+      <p>
+        ¿Es cliente registrado?:
+        <input type="radio" formControlName="status" value="Si" /> Si
+        <input type="radio" formControlName="status" value="No" /> No
+        @if(enviado && formContacto.get('status')?.errors?.['required']){
+          <span style="color: red;">Este campo es obligatorio</span>
+        }
+      </p>
 
-      @if(enviado && formContacto.get('municipio')?.errors?.['required']){
-        <span style="color: red;">Este campo es obligatorio</span>
-      }
-    </p>
-    <p>
-      ¿Cuál es su opinión, queja o sugerencia? <br />
-      <textarea class="form-control"  rows="10"  cols="70" formControlName="mensaje"></textarea>
-      @if(enviado && formContacto.get('mensaje')?.errors?.['required']){
-        <span style="color: red;">Este campo es obligatorio</span>
-      }
-      @if(enviado && formContacto.get('mensaje')?.errors?.['maxlength']){
-        <span style="color: red;">Solo se perminten 500 caracteres</span>
-      }
-    </p>
-    <p>
-      <input type="checkbox"  class="form-control" formControlName="autorizacion" />
-      ¿Autoriza compartir sus datos personales?
-    </p>
-    <button type="submit" class="btn btn-primary">Enviar</button>
-  </form>
-</div>
+      <p>
+        Municipio:
+        <select class="form-control" formControlName="municipio">
+          <option value="Amealco">Amealco</option>
+          <option value="San Juan del Río">San Juan del Río</option>
+          <option value="Tequisquiapan">Tequisquiapan</option>
+        </select>
+        @if(enviado && formContacto.get('municipio')?.errors?.['required']){
+          <span style="color: red;">Este campo es obligatorio</span>
+        }
+      </p>
+
+      <p>
+        ¿Cuál es su opinión, queja o sugerencia? <br />
+        <textarea class="form-control" rows="10" cols="70" formControlName="mensaje"></textarea>
+        @if(enviado && formContacto.get('mensaje')?.errors?.['required']){
+          <span style="color: red;">Este campo es obligatorio</span>
+        }
+        @if(enviado && formContacto.get('mensaje')?.errors?.['maxlength']){
+          <span style="color: red;">Solo se permiten 500 caracteres</span>
+        }
+      </p>
+
+      <p>
+        <input type="checkbox" class="form-control" formControlName="autorizacion" />
+        ¿Autoriza compartir sus datos personales?
+      </p>
+
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+  </div>
 
   <p></p>
 
   <div>
-    @if (nombreCliente != '' && emailCliente != '' && mensajeCliente != '' && statusCliente != '' &&municipioCliente != '') {
+    @if (nombreCliente != '' && emailCliente != '' && mensajeCliente != '' && statusCliente != '' && municipioCliente != '') {
       Datos enviados: <br />
       Nombre: {{nombreCliente}} <br>
       E-Mail: {{emailCliente}} <br>
@@ -83,3 +102,30 @@
 </div>
 
 <router-outlet></router-outlet>
+
+<!-- Estilos -->
+<style>
+  .nav-container {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 1000;
+  }
+
+  .home-btn img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+
+  .menu-select {
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+</style>
